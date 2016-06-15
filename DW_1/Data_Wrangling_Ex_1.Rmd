@@ -1,3 +1,19 @@
+---
+title: "Data Wrangling Exercise 1"
+author: "Swati Jani Joshi"
+date: "June 14, 2016"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+This is an R Markdown document containing the code for the exercise 1.
+
+```{r}
+library(dplyr)
+library(tidyr)
 refine_original <- read.csv("~/Documents/DW/DW_1/refine_original.csv")
 View(refine_original)
 df <- refine_original
@@ -23,3 +39,6 @@ for (l in 1:4) {
   df[[paste0(dummy_var2)]]<- as.numeric((df$product_category == paste0(product)))
 }
 write.csv(df, file = "refine_clean.csv")
+```
+
+
