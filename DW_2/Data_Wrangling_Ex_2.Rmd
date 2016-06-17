@@ -1,0 +1,56 @@
+---
+title: "Data Wrangling Exercise 2"
+author: "Swati Jani Joshi"
+date: "June 17, 2016"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Titanic
+
+R markdown containing the complete code for the Titanic data set in exercise 2.
+
+#### Load Data
+```{r}
+library(dplyr)
+library(tidyr)
+df <- read.csv("~/Documents/Data Wrangling/DW_2/titanic_original.csv")
+```
+
+#### 1. Port of Embarkation
+```{r}
+is.na(df$embarked) <- df$embarked == ""
+df$embarked[is.na(df$embarked)] <- "S"
+```
+
+#### 2. Age
+
+##### a.
+```{r}
+age_mean <- mean(df$age, na.rm = TRUE)
+df$age[is.na(df$age)] <- age_mean
+```
+
+##### b. Other ways the missing values could have been populated by using the median value or the mode value instead of the mean value.
+
+#### 3. Lifeboat
+```{r}
+is.na(df$boat) <- df$boat == ""
+df$boat <- as.character(df$boat)
+df$boat[is.na(df$boat)] <- "None"
+```
+
+#### 4. Cabin
+##### It only makes sense to fill in the missing cabin numbers with NA. 
+##### A missing value for cabin numbers most likely means that the person did not survive.
+``` {r}
+df$has_cabin_number <- ifelse(df$cabin == '', 0, 1)
+```
+
+#### Clean data file
+```{r}
+write.csv(df, file = "titanic_clean.csv")
+```
